@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 #include "IOManager.h"
+#include "JetFighter.h"
 
 enum class GameState{PLAY, EXIT};
 
@@ -23,6 +24,8 @@ private:
 
 	Uint32 oldTime, currentTime;
 	float deltaTime;
+
+	JetFighter *jet;
 
 	void initSystems();
 	void gameLoop();

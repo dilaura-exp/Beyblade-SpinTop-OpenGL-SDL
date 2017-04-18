@@ -14,6 +14,8 @@ MainGame::MainGame() {
 	gameState = GameState::PLAY;
 	currentTime = SDL_GetTicks();
 	deltaTime = 0;
+
+	jet = new JetFighter();
 }
 
 MainGame::~MainGame() {
@@ -52,7 +54,7 @@ void MainGame::initSystems() {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);		
-	glEnable(GL_FOG);
+	//glEnable(GL_FOG);
 	glFogi(GL_FOG_MODE, GL_LINEAR);
 	//glFogi(GL_FOG_DENSITY, 0.3f);
 	glFogf(GL_FOG_START, 1.0);
@@ -122,7 +124,7 @@ void MainGame::drawGame() {
 		glVertex3f(2.0, 2.0, 0.0);
 	glEnd();*/
 
-	cube = ObjectLoader::loadWavefront("monkey.obj");
+	/*cube = ObjectLoader::loadWavefront("monkey.obj");
 	glPushMatrix();
 		glTranslatef(-2.0, 0.0, -10.0);
 		glRotatef(angle, 1.0, 1.0, 1.0);
@@ -130,7 +132,12 @@ void MainGame::drawGame() {
 	glPopMatrix();
 	glTranslatef(2.0, 0.0, -8.0);
 	glRotatef(-angle, 1.0, 1.0, 1.0);
-	glCallList(cube);
+	glCallList(cube);*/
+
+	glTranslatef(0.0, 0.0, -50.0);
+	glRotatef(angle, 1.0, 1.0, 1.0);
+	//glRotatef(45, 1.0, 0, 0);
+	jet->draw();
 
 	SDL_GL_SwapWindow(window);
 }

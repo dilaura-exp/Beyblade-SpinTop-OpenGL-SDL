@@ -118,8 +118,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ErrorLog.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="IOManager.cpp" />
+    <ClCompile Include="JetFighter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="ObjectLoader.cpp" />
@@ -127,9 +129,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLog.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="IOManager.h" />
+    <ClInclude Include="JetFighter.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="ObjectLoader.h" />
     <ClInclude Include="picoPNG.h" />
