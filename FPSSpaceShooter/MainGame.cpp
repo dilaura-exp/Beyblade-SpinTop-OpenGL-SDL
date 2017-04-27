@@ -28,6 +28,7 @@ void MainGame::run() {
 }
 
 GLTexture texture;
+int cube;
 
 void MainGame::initSystems() {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -68,7 +69,8 @@ void MainGame::initSystems() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, dif);
 	float amb[] = { 0.2, 0.2, 0.2, 1.0 };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
-	
+
+	cube = ObjectLoader::loadWavefront("beyblade.obj");
 }
 
 void MainGame::gameLoop() {
@@ -100,7 +102,6 @@ void MainGame::processInput() {
 }
 
 float angle = 0.0f;
-int cube;
 
 void MainGame::drawGame() {
 	glClearDepth(1.0);
@@ -124,7 +125,6 @@ void MainGame::drawGame() {
 		glVertex3f(2.0, 2.0, 0.0);
 	glEnd();*/
 
-	/*cube = ObjectLoader::loadWavefront("monkey.obj");
 	glPushMatrix();
 		glTranslatef(-2.0, 0.0, -10.0);
 		glRotatef(angle, 1.0, 1.0, 1.0);
@@ -132,12 +132,12 @@ void MainGame::drawGame() {
 	glPopMatrix();
 	glTranslatef(2.0, 0.0, -8.0);
 	glRotatef(-angle, 1.0, 1.0, 1.0);
-	glCallList(cube);*/
+	glCallList(cube);
 
 	glTranslatef(0.0, 0.0, -50.0);
 	glRotatef(angle, 1.0, 1.0, 1.0);
 	//glRotatef(45, 1.0, 0, 0);
-	jet->draw();
+	//jet->draw();
 
 	SDL_GL_SwapWindow(window);
 }
