@@ -8,6 +8,8 @@ private:
 	float maxDirectionalSpeed;
 	float directionalAcceleration;
 
+	int leftInput, rightInput;
+	int downInput, upInput;
 	int horizontalInput;
 	int verticalInput;
 

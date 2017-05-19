@@ -1,12 +1,13 @@
 #include "SpinTop.h"
 #include "ObjectLoader.h"
 #include <iostream>
+#include <math.h>
 
 
 SpinTop::SpinTop() {
 	directionalSpeed = new Vector3();
 	maxDirectionalSpeed = 5.0f;
-	directionalAcceleration = 0.2f;
+	directionalAcceleration = 0.02f;
 }
 
 
@@ -35,6 +36,20 @@ void SpinTop::update(float deltaTime) {
 		spinDeceleration += 0.5 * deltaTime;
 	}
 
+	if (horizontalInput != 0) {
+		if (abs(directionalSpeed->x) < maxDirectionalSpeed) {
+			directionalSpeed->x += directionalAcceleration*horizontalInput;
+		}
+	}
+	else {
+		if (directionalSpeed->x > 0) {
+			directionalSpeed->x -= directionalAcceleration*horizontalInput;
+		}
+		else if (directionalSpeed->x < 0) {
+			directionalSpeed->x += directionalAcceleration*horizontalInput;
+		}
+	}
+
 	translate(*directionalSpeed);
 }
 
@@ -53,32 +68,34 @@ void SpinTop::draw() {
 void SpinTop::input(SDL_Event &evnt) {
 	if (evnt.type == SDL_KEYDOWN) {
 		if (evnt.key.keysym.sym == SDLK_LEFT) {
-			horizontalInput = -1;
+			leftInput = -1;
 		}
 		if (evnt.key.keysym.sym == SDLK_RIGHT) {
-			horizontalInput = 1;
+			rightInput = 1;
 		}
 		if (evnt.key.keysym.sym == SDLK_UP) {
-
+			upInput = 1;
 		}
 		if (evnt.key.keysym.sym == SDLK_DOWN) {
-
+			downInput = -1;
 		}
 	}
 	if (evnt.type == SDL_KEYUP) {
 		if (evnt.key.keysym.sym == SDLK_LEFT) {
-
+			leftInput = 0;
 		}
 		if (evnt.key.keysym.sym == SDLK_RIGHT) {
-
+			rightInput = 0;
 		}
 		if (evnt.key.keysym.sym == SDLK_UP) {
-
+			upInput = 0;
 		}
 		if (evnt.key.keysym.sym == SDLK_DOWN) {
-
+			downInput = 0;
 		}
 	}
+	horizontalInput = rightInput + leftInput;
+	verticalInput = upInput + downInput;
 }
 
 void SpinTop::setSpinSpeed(float spinSpeed) {
