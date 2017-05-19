@@ -13,14 +13,10 @@ int ObjectLoader::loadWavefront(const char* filePath) {
 		logFatalError("Can not load wavefront. File can not be opened.");
 	}
 	char buf[256];
-	char c;
-	while (in.getline(buf, 256)) {		//eof end of the file
+	while (!in.eof()) {		//eof end of the file
 		in.getline(buf, 256);
-		std::cout << std::string(buf) << std::endl;
 		coord.push_back(new std::string(buf));
 	}
-	std::cout << "SELESAI" << std::endl;
-	system("PAUSE");
 	for (int i = 0; i < coord.size(); i++) {
 		if ((*coord[i])[0] == '#')
 			continue;

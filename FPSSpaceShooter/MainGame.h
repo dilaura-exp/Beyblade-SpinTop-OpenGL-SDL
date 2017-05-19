@@ -1,11 +1,10 @@
 #pragma once
 
 #include <SDL/SDL.h>
-#include <SDL_image.h>
 #include <GL/glew.h>
 
 #include "IOManager.h"
-#include "JetFighter.h"
+#include "SpinTop.h"
 
 enum class GameState{PLAY, EXIT};
 
@@ -24,10 +23,11 @@ private:
 
 	Uint32 oldTime, currentTime;
 	float deltaTime;
-
-	JetFighter *jet;
+	
+	SpinTop *playerSpinTop;
 
 	void initSystems();
+	void initGameObjects();
 	void gameLoop();
 	void processInput();
 	void drawGame();
