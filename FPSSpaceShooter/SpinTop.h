@@ -14,15 +14,23 @@ private:
 	int verticalInput;
 
 	Vector3 *directionalSpeed;
+	void handleXMovement();
+	void handleYMovement();
+
+	float collisionRadius;
+
+	float *material;
+	int playerIndex;
 
 public:
 	SpinTop();
 	~SpinTop();
 
-	void init();
+	void init(float *material, int playerIndex);
 	void update(float deltaTime);
 	void draw();
 	void input(SDL_Event &evnt);
+	bool checkCollision(SpinTop *spinTop);
 
 	void setSpinSpeed(float spinSpeed);
 };

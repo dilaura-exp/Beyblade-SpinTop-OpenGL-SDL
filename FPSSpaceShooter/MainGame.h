@@ -25,6 +25,7 @@ private:
 	float deltaTime;
 	
 	SpinTop *playerSpinTop;
+	SpinTop *cpuSpinTop;
 
 	void initSystems();
 	void initGameObjects();

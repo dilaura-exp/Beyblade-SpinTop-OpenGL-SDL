@@ -61,6 +61,7 @@ int ObjectLoader::loadWavefront(const char* filePath) {
 	int num;
 	num = glGenLists(1);
 	glNewList(num, GL_COMPILE);
+	float longest = 0;
 		for (int i = 0; i < faces.size(); i++) {
 			if (faces[i]->quad) {
 				glBegin(GL_QUADS);
@@ -84,7 +85,14 @@ int ObjectLoader::loadWavefront(const char* filePath) {
 					glVertex3f(vertices[faces[i]->vertexIndexes[2] - 1]->x, vertices[faces[i]->vertexIndexes[2] - 1]->y, vertices[faces[i]->vertexIndexes[2] - 1]->z);
 				glEnd();
 			}
+			for (int j = 0; j < 4; j++) {
+				float banding = vertices[faces[i]->vertexIndexes[j] - 1]->x;
+				if (banding > longest) {
+					longest = banding;
+				}
+			}
 		}
+		std::cout << longest << std::endl;
 	glEndList();
 
 	for (int i = 0; i < coord.size(); i++)

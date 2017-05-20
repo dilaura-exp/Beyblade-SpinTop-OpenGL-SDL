@@ -16,6 +16,7 @@ MainGame::MainGame() {
 	deltaTime = 0;
 
 	playerSpinTop = new SpinTop();
+	cpuSpinTop = new SpinTop();
 }
 
 MainGame::~MainGame() {
@@ -48,7 +49,7 @@ void MainGame::initSystems() {
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45, 1366.0 / 768.0, 1.0, 1000.0);
+	gluPerspective(45, (GLdouble)screenWidth / (GLdouble)screenHeight, 1.0, 1000.0);
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
@@ -73,8 +74,14 @@ void MainGame::initSystems() {
 }
 
 void MainGame::initGameObjects() {
-	playerSpinTop->init();
+	float *material1 = new float[4]{ 0.75f, 0.25f, 0.25f, 1.0f };
+	float *material2 = new float[4]{ 0.25f, 0.25f, 0.75f, 1.0f };
+
+	playerSpinTop->init(material1, 0);
+	cpuSpinTop->init(material2, 1);
+
 	playerSpinTop->setSpinSpeed(720.0f);
+	cpuSpinTop->setSpinSpeed(720.0f);
 }
 
 void MainGame::gameLoop() {
@@ -84,6 +91,9 @@ void MainGame::gameLoop() {
 		deltaTime = (currentTime - oldTime) / 1000.0f;
 
 		playerSpinTop->update(deltaTime);
+		cpuSpinTop->update(deltaTime);
+		playerSpinTop->checkCollision(cpuSpinTop);
+		//cpuSpinTop->checkCollision(playerSpinTop);
 
 		processInput();
 		drawGame();
@@ -97,6 +107,7 @@ void MainGame::processInput() {
 			gameState = GameState::EXIT;
 		}
 		playerSpinTop->input(evnt);
+		cpuSpinTop->input(evnt);
 	}
 }
 
@@ -109,7 +120,7 @@ void MainGame::drawGame() {
 	float pos[] = { -2.0, 2.0, -3.0, 1.0 };
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 
-	glTranslatef(0.0, 0.0, -10);
+	glTranslatef(0.0, 0.0, -20);
 	glRotatef(60, 1.0, 0, 0);
 
 	/*angle += (30.0f*deltaTime);
@@ -128,6 +139,7 @@ void MainGame::drawGame() {
 	glEnd();*/
 
 	playerSpinTop->draw();
+	cpuSpinTop->draw();
 
 	SDL_GL_SwapWindow(window);
 }
