@@ -74,14 +74,16 @@ void MainGame::initSystems() {
 }
 
 void MainGame::initGameObjects() {
+	UI::getInstance();
+
 	float *material1 = new float[4]{ 0.75f, 0.25f, 0.25f, 1.0f };
 	float *material2 = new float[4]{ 0.25f, 0.25f, 0.75f, 1.0f };
 
 	playerSpinTop->init(material1, 0);
 	cpuSpinTop->init(material2, 1);
 
-	playerSpinTop->setSpinSpeed(720.0f);
-	cpuSpinTop->setSpinSpeed(720.0f);
+	playerSpinTop->setMaxSpinSpeed(980.0f);
+	cpuSpinTop->setMaxSpinSpeed(980.0f);
 }
 
 void MainGame::gameLoop() {
@@ -90,12 +92,20 @@ void MainGame::gameLoop() {
 		currentTime = SDL_GetTicks();
 		deltaTime = (currentTime - oldTime) / 1000.0f;
 
+		processInput();
+
 		playerSpinTop->update(deltaTime);
 		cpuSpinTop->update(deltaTime);
-		playerSpinTop->checkCollision(cpuSpinTop);
-		//cpuSpinTop->checkCollision(playerSpinTop);
+		SpinTopCollision *playerCollision = playerSpinTop->checkCollision(cpuSpinTop);
+		SpinTopCollision *cpuCollision = cpuSpinTop->checkCollision(playerSpinTop);
 
-		processInput();
+		if (playerCollision != nullptr) {
+			playerSpinTop->onCollision(playerCollision);
+		}
+		if (cpuCollision != nullptr) {
+			cpuSpinTop->onCollision(cpuCollision);
+		}
+
 		drawGame();
 	}
 }
@@ -121,7 +131,7 @@ void MainGame::drawGame() {
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 
 	glTranslatef(0.0, 0.0, -20);
-	glRotatef(60, 1.0, 0, 0);
+	glRotatef(45, 1.0, 0, 0);
 
 	/*angle += (30.0f*deltaTime);
 	if (angle >= 360.0f) angle = 0.0f;
@@ -140,6 +150,7 @@ void MainGame::drawGame() {
 
 	playerSpinTop->draw();
 	cpuSpinTop->draw();
+	UI::draw();
 
 	SDL_GL_SwapWindow(window);
 }

@@ -27,6 +27,11 @@ void GameObject::input(SDL_Event &evnt) {
 
 }
 
+
+void GameObject::onCollision(Collision &collision) {
+
+}
+
 void GameObject::translate(const Vector3 &translation) {
 	position->x += translation.x;
 	position->y += translation.y;

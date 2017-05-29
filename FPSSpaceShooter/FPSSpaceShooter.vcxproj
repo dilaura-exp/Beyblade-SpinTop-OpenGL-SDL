@@ -131,6 +131,7 @@
     <ClCompile Include="ObjectLoader.cpp" />
     <ClCompile Include="picoPNG.cpp" />
     <ClCompile Include="SpinTop.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ErrorLog.h" />
@@ -143,6 +144,7 @@
     <ClInclude Include="ObjectLoader.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="SpinTop.h" />
+    <ClInclude Include="UI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

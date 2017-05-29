@@ -5,6 +5,7 @@
 
 #include "IOManager.h"
 #include "SpinTop.h"
+#include "UI.h"
 
 enum class GameState{PLAY, EXIT};
 

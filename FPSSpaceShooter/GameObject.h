@@ -57,22 +57,29 @@ struct Vector3 {
 		result.z = abs(z);
 		return result;
 	}
-	Vector3 getSign() {
-		Vector3 result(0, 0, 0);
-		if (x > 0)
-			result.x = 1;
-		else if (x < 0)
-			result.x = -1;
-		if (y > 0)
-			result.y = 1;
-		else if (y < 0)
-			result.y = -1;
-		if (z > 0)
-			result.z = 1;
-		else if (z < 0)
-			result.z = -1;
-		return result;
+	float getNorm() {
+		return sqrt(x*x + y*y + z*z);
 	}
+	Vector3 getNormalized() {
+		return Vector3(*this / getNorm());
+	}
+};
+
+class Collision {
+public:
+	Collision() {}
+	Collision(Vector3 midPoint, Vector3 collidedPosition, float distance)	{
+		this->midPoint = midPoint;
+		this->collidedPosition = collidedPosition;
+		this->distance = distance;
+	}
+	~Collision() {
+
+	}
+
+	Vector3 midPoint;
+	Vector3 collidedPosition;
+	float distance;
 };
 
 class GameObject {
@@ -92,7 +99,7 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 	virtual void input(SDL_Event &evnt);
+	virtual void onCollision(Collision &collision);
 
 	void translate(const Vector3 &translation);
 };
-
